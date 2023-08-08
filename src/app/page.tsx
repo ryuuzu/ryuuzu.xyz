@@ -1,14 +1,7 @@
 "use client";
 
 import { DM_Sans } from "next/font/google";
-import {
-	GitHub,
-	Twitter,
-	LinkedIn,
-	Discord,
-	PinAlt,
-	ArrowTrCircle,
-} from "iconoir-react";
+import { PinAlt } from "iconoir-react";
 import { useEffect, useState } from "react";
 import { WorkExperience } from "../../@types/WorkExperience";
 import { AcademicDegree } from "../../@types/AcademicDegree";
@@ -18,6 +11,7 @@ import { WorkExperiences } from "@/components/WorkExperience";
 import { CvSeparator } from "@/components/CvSeparator";
 import { Projects } from "@/components/Project";
 import { AcademicDegrees } from "@/components/AcademicDegree";
+import { SocialLinks } from "@/components/SocialLinks";
 
 const dmSans = DM_Sans({
 	subsets: ["latin"],
@@ -104,7 +98,7 @@ export default function Home() {
 		<main
 			className={`flex min-h-screen w-full flex-col items-center sm:flex-row sm:items-stretch ${dmSans.className}`}
 		>
-			<div className="w-full flex-grow bg-white px-5 py-3 text-primary  sm:min-h-screen sm:w-3/4 sm:py-10 md:w-3/5">
+			<div className="w-full flex-grow bg-white px-5 py-3 text-primary overflow-auto xl:max-h-screen sm:min-h-screen sm:w-3/4 sm:py-10 md:w-3/5">
 				<div className="title-bar flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-0">
 					<div className="header-text flex flex-row items-center gap-2 sm:flex-col sm:items-start sm:gap-1">
 						<div className="name text-sm font-bold xs:text-lg sm:text-xl md:text-2xl lg:text-3xl">
@@ -115,36 +109,7 @@ export default function Home() {
 							Back-end Developer
 						</div>
 					</div>
-					<div className="profile-links md: flex flex-row items-center gap-5 sm:text-base md:text-lg">
-						<a
-							href="https://github.com/ryuuzu/"
-							className="transition-colors duration-300 hover:text-secondary"
-							target="_blank"
-						>
-							<GitHub />
-						</a>
-						<a
-							href="https://linkedin.com/in/utsavgurmachhan/"
-							className="transition-colors duration-300 hover:text-secondary"
-							target="_blank"
-						>
-							<LinkedIn />
-						</a>
-						<a
-							href="https://twitter.com/UtsavGurmachhan/"
-							className="transition-colors duration-300 hover:text-secondary"
-							target="_blank"
-						>
-							<Twitter />
-						</a>
-						<a
-							href="https://discord.com/users/331829647568535563"
-							className="transition-colors duration-300 hover:text-secondary"
-							target="_blank"
-						>
-							<Discord />
-						</a>
-					</div>
+					<SocialLinks />
 				</div>
 				<WorkExperiences workExperiences={workExperience} />
 				<CvSeparator />
@@ -152,7 +117,7 @@ export default function Home() {
 				<CvSeparator />
 				<AcademicDegrees academicDegrees={academicDegree} />
 			</div>
-			<div className="w-full bg-primary px-5 py-8 text-white sm:min-h-screen sm:w-1/4 sm:py-10 md:w-2/5">
+			<div className="w-full bg-primary px-5 py-8 text-white sm:min-h-screen xl:max-h-screen sm:w-1/4 sm:py-10 md:w-2/5">
 				<div>
 					Hello, I am Utsav Gurmachhan. I am also called ryuuzu.{" "}
 					<br />

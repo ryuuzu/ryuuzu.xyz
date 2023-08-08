@@ -84,7 +84,7 @@ export const WorkExperiences = ({
 								key={workExperience.company.name}
 							/>
 							{index < workExperiences.length - 1 && (
-								<div className="work-experience-separator my-5"></div>
+								<div className="work-experience-separator my-5 border-b border-tertiary border-dotted"></div>
 							)}
 						</>
 					);
