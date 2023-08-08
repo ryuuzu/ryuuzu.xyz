@@ -26,14 +26,44 @@ export default function Home() {
 				location: "Khusibun, Kathmandu, Nepal",
 				website: "https://crocuspearl.com/",
 			},
+			position: "Back-end Developer",
+			description:
+				"A company that specializes in development, design and marketing.",
+			duration: {
+				start: "2023/05/02",
+			},
+			skills: [
+				"Python",
+				"Django",
+				"Django Rest Framework",
+				"JavaScript",
+				"PHP",
+				"Laravel",
+				"MySQL",
+			],
+		},
+		{
+			company: {
+				name: "Crocus Pearl Technologies",
+				location: "Khusibun, Kathmandu, Nepal",
+				website: "https://crocuspearl.com/",
+			},
 			position: "Back-end Intern",
 			description:
-				"A start-up company providing various design, development and digital marketing services.",
+				"A company that specializes in development, design and marketing.",
 			duration: {
 				start: "2023/02/01",
-				// end: "2023-05-01",
+				end: "2023-05-01",
 			},
-			skills: ["JavaScript", "PHP", "Laravel", "Python", "Django"],
+			skills: [
+				"Python",
+				"Django",
+				"Django Rest Framework",
+				"JavaScript",
+				"PHP",
+				"Laravel",
+				"MySQL",
+			],
 		},
 		{
 			company: {
@@ -47,13 +77,13 @@ export default function Home() {
 				end: "2023/02/01",
 			},
 			description:
-				"Teaching assistant for the course of Programming module which included Java.",
+				"An institution that specializes in IT and Business degrees, ranking among the top colleges in Nepal.",
 			tasks: [
-				"Assisted Academics Department of the College",
-				"Helped students with their assignments and projects",
-				"Team Lead for an internal project for the College.",
+				"Assisted in Programming (Java) Module for the Academics Department of the college by answering student queries and helping them with their assignments.",
+				"Led a team of developers and designers to complete an internal system for the college.",
+				"Decluttered and improved the system database by migrating to MySQL and designing new database schema.",
 			],
-			skills: ["JavaScript", "Tailwind CSS", "Python", "Django"],
+			skills: ["Python", "Django", "JavaScript", "TailwindCSS", "MySQL"],
 		},
 	]);
 
