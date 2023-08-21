@@ -33,15 +33,7 @@ export default function Home() {
             duration: {
                 start: "2023/05/02",
             },
-            skills: [
-                "Python",
-                "Django",
-                "Django Rest Framework",
-                "JavaScript",
-                "PHP",
-                "Laravel",
-                "MySQL",
-            ],
+            skills: ["Django", "Django Rest Framework", "JavaScript", "MySQL"],
         },
         {
             company: {
@@ -57,7 +49,6 @@ export default function Home() {
                 end: "2023-05-01",
             },
             skills: [
-                "Python",
                 "Django",
                 "Django Rest Framework",
                 "JavaScript",
@@ -133,9 +124,9 @@ export default function Home() {
 
     return (
         <main
-            className={`flex min-h-screen w-full flex-col items-center sm:flex-row sm:items-stretch ${dmSans.className}`}
+            className={`flex min-h-screen w-full flex-col items-center sm:items-stretch md:flex-row ${dmSans.className}`}
         >
-            <div className="w-full flex-grow overflow-auto bg-white px-5 py-3 text-primary sm:min-h-screen sm:w-3/4 sm:py-10 md:w-3/5 xl:max-h-screen">
+            <div className="w-full flex-grow overflow-auto bg-white px-5 py-3 text-primary sm:min-h-screen sm:py-10 md:max-h-screen md:w-3/5">
                 <div className="title-bar flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-0">
                     <div className="header-text flex flex-row items-center gap-2 sm:flex-col sm:items-start sm:gap-1">
                         <div className="name text-sm font-bold xs:text-lg sm:text-xl md:text-2xl lg:text-3xl">
@@ -154,7 +145,7 @@ export default function Home() {
                 <CvSeparator />
                 <AcademicDegrees academicDegrees={academicDegree} />
             </div>
-            <div className="w-full bg-primary px-5 py-8 text-white sm:min-h-screen sm:w-1/4 sm:py-10 md:w-2/5 xl:max-h-screen">
+            <div className="w-full bg-primary px-5 py-8 text-base text-white sm:min-h-screen sm:py-10 md:max-h-screen md:w-2/5 md:text-sm lg:text-base">
                 <div>
                     Hi, I&apos;m{" "}
                     <span className="text-tertiary">Utsav Gurmachhan</span>,
@@ -282,13 +273,6 @@ export default function Home() {
                     target="_blank"
                 >
                     <PinAlt /> <div>Chandragiri, Kathmandu, Nepal</div>
-                </a>
-                <a
-                    href="https://leonard.sh/"
-                    target="_blank"
-                    className="text-xs decoration-dotted underline-offset-2 hover:underline"
-                >
-                    Inspired by Leonard
                 </a>
             </div>
         </main>
