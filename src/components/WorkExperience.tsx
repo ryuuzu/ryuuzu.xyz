@@ -78,15 +78,14 @@ export const WorkExperiences = ({
             <>
                 {workExperiences.map((workExperience, index) => {
                     return (
-                        <>
-                            <WorkExperience
-                                workExperience={workExperience}
-                                key={workExperience.company.name}
-                            />
+                        <div
+                            key={`${workExperience.company.name.toLowerCase()}-work-experience-${index}`}
+                        >
+                            <WorkExperience workExperience={workExperience} />
                             {index < workExperiences.length - 1 && (
                                 <div className="work-experience-separator my-5 border-b border-dotted border-tertiary"></div>
                             )}
-                        </>
+                        </div>
                     );
                 })}
             </>
