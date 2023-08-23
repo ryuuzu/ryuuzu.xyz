@@ -13,8 +13,9 @@ export default function HallOfCodes() {
                     title="Utsav Gurmachhan Magar"
                     subTitle="Hall of Codes"
                 />
+                <div>Page under Construction</div>
             </div>
-            <Sidebar>Test</Sidebar>
+            <Sidebar>I SAID ITS UNDER CONSTRUCTION</Sidebar>
         </main>
     );
 }

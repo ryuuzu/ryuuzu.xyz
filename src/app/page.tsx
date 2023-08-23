@@ -176,7 +176,7 @@ export default function Home() {
                 applications can easily rest in the clouds and serve the
                 requests from users happily. I quote{" "}
                 <em>
-                    <strong>Cory &quot;cr0bot&quot; Hughart</strong>
+                    <strong>Cory &quot;cr0ybot&quot; Hughart</strong>
                 </em>{" "}
                 who inspired me to write my introductions,{" "}
                 <em>

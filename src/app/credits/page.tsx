@@ -14,7 +14,8 @@ export default function Credits() {
                     subTitle="Website Credits"
                 />
             </div>
-            <Sidebar>Test</Sidebar>
+            <div>Page under Construction</div>
+            <Sidebar>I SAID ITS UNDER CONSTRUCTION</Sidebar>
         </main>
     );
 }
