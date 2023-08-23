@@ -3,31 +3,17 @@
 import { AcademicDegrees } from "@/components/AcademicDegree";
 import { CvSeparator } from "@/components/CvSeparator";
 import { Projects } from "@/components/Project";
-import { SocialLinks } from "@/components/SocialLinks";
 import { WorkExperiences } from "@/components/WorkExperience";
 import { GithubService } from "@/services/GithubService";
 import { formatDistance } from "date-fns";
 import { PinAlt } from "iconoir-react";
-import { DM_Sans } from "next/font/google";
 import { useEffect, useState } from "react";
 import { AcademicDegree } from "../../@types/AcademicDegree";
 import { UserRepo } from "../../@types/GithubRepository";
 import { WorkExperience } from "../../@types/WorkExperience";
-import {
-    Discord,
-    GitHub,
-    Instagram,
-    LinkedIn,
-    Mail,
-    TikTok,
-    Twitter,
-} from "iconoir-react";
 import { SocialLink } from "../../@types/SocialLink";
-
-const dmSans = DM_Sans({
-    subsets: ["latin"],
-    weight: ["400", "500", "700"],
-});
+import { RyuuApiService } from "@/services/RyuuApiService";
+import { Header } from "@/components/Header";
 
 export default function Home() {
     const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([
@@ -123,51 +109,12 @@ export default function Home() {
         },
     ]);
 
-    const [socialLinks, setSocialLinks] = useState<SocialLink[]>([
-        {
-            href: "mailto:me@ryuuzu.xyz",
-            component: <Mail />,
-            type: "mail",
-        },
-        {
-            href: "https://github.com/ryuuzu",
-            component: <GitHub />,
-            type: "github",
-        },
-        {
-            href: "https://linkedin.com/in/utsavgurmachhan/",
-            component: <LinkedIn />,
-            type: "linkedin",
-        },
-        {
-            href: "https://twitter.com/UtsavGurmachhan/",
-            component: <Twitter />,
-            type: "twitter",
-        },
-        {
-            href: "https://discord.com/users/331829647568535563",
-            component: <Discord />,
-            type: "discord",
-        },
-        {
-            href: "https://tiktok.com/@ryuuzu3118",
-            component: <TikTok />,
-            type: "tiktok",
-        },
-
-        {
-            href: "https://instagram.com/ryuuzu3118",
-            component: <Instagram />,
-            type: "instagram",
-        },
-    ]);
-
     const [projects, setProjects] = useState<UserRepo[]>([]);
     const [isProjectsLoading, setIsProjectLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsProjectLoading(true);
         const githubService = new GithubService();
+        const ryuuApiService = new RyuuApiService();
         githubService
             .getPinnedReposWithLanguagesAndCommit()
             .then((repos) => {
@@ -181,23 +128,13 @@ export default function Home() {
 
     return (
         <main
-            className={`flex min-h-screen w-full flex-col items-center sm:items-stretch md:flex-row ${dmSans.className}`}
+            className={`flex min-h-screen w-full flex-col items-center sm:items-stretch md:flex-row`}
         >
             <div className="w-full flex-grow overflow-auto bg-white px-5 py-3 text-primary sm:min-h-screen sm:py-10 md:max-h-screen md:w-3/5">
-                <div className="title-bar flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-0 md:flex-col lg:flex-row">
-                    <div className="header-text flex flex-row items-center gap-2 sm:flex-col sm:items-start sm:gap-1 md:flex-row md:items-center lg:flex-col lg:items-start">
-                        <div className="name text-sm font-bold xs:text-lg sm:text-xl md:text-lg lg:text-3xl">
-                            Utsav Gurmachhan Magar
-                        </div>
-                        <div className="separator block sm:hidden md:block lg:hidden">
-                            |
-                        </div>
-                        <div className="position text-sm font-medium text-secondary xs:text-lg md:text-base lg:text-lg">
-                            Back-end Developer
-                        </div>
-                    </div>
-                    <SocialLinks socialLinks={socialLinks} />
-                </div>
+                <Header
+                    title="Utsav Gurmachhan Magar"
+                    subTitle="Back-end Developer"
+                />
                 <WorkExperiences workExperiences={workExperiences} />
                 <CvSeparator />
                 <Projects projects={projects} isLoading={isProjectsLoading} />

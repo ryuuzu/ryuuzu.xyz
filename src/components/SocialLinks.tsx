@@ -1,4 +1,5 @@
 import { SocialLink } from "../../@types/SocialLink";
+import { Iconoir } from "iconoir-react";
 
 export const SocialLinks = ({ socialLinks }: { socialLinks: SocialLink[] }) => {
     return (
@@ -10,6 +11,7 @@ export const SocialLinks = ({ socialLinks }: { socialLinks: SocialLink[] }) => {
                     target="_blank"
                     key={socialLink.type}
                 >
+                    {/* <Iconoir name={socialLink.component} /> */}
                     {socialLink.component}
                 </a>
             ))}

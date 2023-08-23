@@ -1,3 +1,19 @@
-export default function Credits() {
-    return <h1>Hall of Fame</h1>;
+"use client";
+
+import { Header } from "@/components/Header";
+
+export default function HallOfCodes() {
+    return (
+        <main
+            className={`flex min-h-screen w-full flex-col items-center sm:items-stretch md:flex-row`}
+        >
+            <div className="w-full flex-grow overflow-auto bg-white px-5 py-3 text-primary sm:min-h-screen sm:py-10 md:max-h-screen md:w-3/5">
+                <Header
+                    title="Utsav Gurmachhan Magar"
+                    subTitle="Hall of Codes"
+                />
+            </div>
+            <div className="w-full bg-primary px-5 py-8 text-base text-white sm:min-h-screen sm:py-10 md:max-h-screen md:w-2/5 md:text-sm lg:text-base"></div>
+        </main>
+    );
 }
