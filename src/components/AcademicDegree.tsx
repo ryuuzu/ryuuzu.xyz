@@ -15,8 +15,8 @@ const AcademicDegree = ({
                         href={academicDegree.website}
                         className="text-primary underline decoration-dotted underline-offset-4"
                     >
-                        {academicDegree.institution},
-                    </a>{" "}
+                        {academicDegree.institution}
+                    </a>{", "}
                     {academicDegree.name}
                 </div>
                 <div>

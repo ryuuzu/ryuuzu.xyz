@@ -1,6 +1,7 @@
 "use client";
 
 import { Header } from "@/components/Header";
+import { Sidebar } from "@/components/Sidebar";
 
 export default function Credits() {
     return (
@@ -12,8 +13,9 @@ export default function Credits() {
                     title="Utsav Gurmachhan Magar"
                     subTitle="Website Credits"
                 />
+                <div>Page under Construction</div>
             </div>
-            <div className="w-full bg-primary px-5 py-8 text-base text-white sm:min-h-screen sm:py-10 md:max-h-screen md:w-2/5 md:text-sm lg:text-base"></div>
+            <Sidebar>I SAID ITS UNDER CONSTRUCTION</Sidebar>
         </main>
     );
 }
