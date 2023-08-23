@@ -13,6 +13,16 @@ import { useEffect, useState } from "react";
 import { AcademicDegree } from "../../@types/AcademicDegree";
 import { UserRepo } from "../../@types/GithubRepository";
 import { WorkExperience } from "../../@types/WorkExperience";
+import {
+    Discord,
+    GitHub,
+    Instagram,
+    LinkedIn,
+    Mail,
+    TikTok,
+    Twitter,
+} from "iconoir-react";
+import { SocialLink } from "../../@types/SocialLink";
 
 const dmSans = DM_Sans({
     subsets: ["latin"],
@@ -20,7 +30,7 @@ const dmSans = DM_Sans({
 });
 
 export default function Home() {
-    const [workExperience, setWorkExperience] = useState<WorkExperience[]>([
+    const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([
         {
             company: {
                 name: "Crocus Pearl Technologies",
@@ -79,7 +89,7 @@ export default function Home() {
         },
     ]);
 
-    const [academicDegree, setAcademicDegree] = useState<AcademicDegree[]>([
+    const [academicDegrees, setAcademicDegrees] = useState<AcademicDegree[]>([
         {
             name: "B.Sc. (Hons) Computing",
             institution: "Islington College",
@@ -113,13 +123,60 @@ export default function Home() {
         },
     ]);
 
+    const [socialLinks, setSocialLinks] = useState<SocialLink[]>([
+        {
+            href: "mailto:me@ryuuzu.xyz",
+            component: <Mail />,
+            type: "mail",
+        },
+        {
+            href: "https://github.com/ryuuzu",
+            component: <GitHub />,
+            type: "github",
+        },
+        {
+            href: "https://linkedin.com/in/utsavgurmachhan/",
+            component: <LinkedIn />,
+            type: "linkedin",
+        },
+        {
+            href: "https://twitter.com/UtsavGurmachhan/",
+            component: <Twitter />,
+            type: "twitter",
+        },
+        {
+            href: "https://discord.com/users/331829647568535563",
+            component: <Discord />,
+            type: "discord",
+        },
+        {
+            href: "https://tiktok.com/@ryuuzu3118",
+            component: <TikTok />,
+            type: "tiktok",
+        },
+
+        {
+            href: "https://instagram.com/ryuuzu3118",
+            component: <Instagram />,
+            type: "instagram",
+        },
+    ]);
+
     const [projects, setProjects] = useState<UserRepo[]>([]);
+    const [isProjectsLoading, setIsProjectLoading] = useState<boolean>(false);
 
     useEffect(() => {
+        setIsProjectLoading(true);
         const githubService = new GithubService();
-        githubService.getPinnedReposWithLanguagesAndCommit().then((repos) => {
-            setProjects(repos);
-        });
+        githubService
+            .getPinnedReposWithLanguagesAndCommit()
+            .then((repos) => {
+                setProjects(repos);
+                setIsProjectLoading(false);
+            })
+            .catch((error) => {
+                setIsProjectLoading(false);
+            });
     }, []);
 
     return (
@@ -127,23 +184,25 @@ export default function Home() {
             className={`flex min-h-screen w-full flex-col items-center sm:items-stretch md:flex-row ${dmSans.className}`}
         >
             <div className="w-full flex-grow overflow-auto bg-white px-5 py-3 text-primary sm:min-h-screen sm:py-10 md:max-h-screen md:w-3/5">
-                <div className="title-bar flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-0">
-                    <div className="header-text flex flex-row items-center gap-2 sm:flex-col sm:items-start sm:gap-1">
-                        <div className="name text-sm font-bold xs:text-lg sm:text-xl md:text-2xl lg:text-3xl">
+                <div className="title-bar flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-0 md:flex-col lg:flex-row">
+                    <div className="header-text flex flex-row items-center gap-2 sm:flex-col sm:items-start sm:gap-1 md:flex-row md:items-center lg:flex-col lg:items-start">
+                        <div className="name text-sm font-bold xs:text-lg sm:text-xl md:text-lg lg:text-3xl">
                             Utsav Gurmachhan Magar
                         </div>
-                        <div className="separator block sm:hidden">|</div>
-                        <div className="position text-sm font-medium text-secondary xs:text-lg">
+                        <div className="separator block sm:hidden md:block lg:hidden">
+                            |
+                        </div>
+                        <div className="position text-sm font-medium text-secondary xs:text-lg md:text-base lg:text-lg">
                             Back-end Developer
                         </div>
                     </div>
-                    <SocialLinks />
+                    <SocialLinks socialLinks={socialLinks} />
                 </div>
-                <WorkExperiences workExperiences={workExperience} />
+                <WorkExperiences workExperiences={workExperiences} />
                 <CvSeparator />
-                <Projects projects={projects} />
+                <Projects projects={projects} isLoading={isProjectsLoading} />
                 <CvSeparator />
-                <AcademicDegrees academicDegrees={academicDegree} />
+                <AcademicDegrees academicDegrees={academicDegrees} />
             </div>
             <div className="w-full bg-primary px-5 py-8 text-base text-white sm:min-h-screen sm:py-10 md:max-h-screen md:w-2/5 md:text-sm lg:text-base">
                 <div>
@@ -189,75 +248,82 @@ export default function Home() {
                         going into the unknown to return richer for it.&quot;
                     </em>
                     <br /> <br />
-                    {academicDegree.length > 0 && (
+                    {academicDegrees.length > 0 && (
                         <>
-                            {academicDegree[0].end ? (
+                            {academicDegrees[0].end ? (
                                 <>
-                                    I have completed my {academicDegree[0].type}{" "}
-                                    in {academicDegree[0].major} from{" "}
+                                    I have completed my{" "}
+                                    {academicDegrees[0].type} in{" "}
+                                    {academicDegrees[0].major} from{" "}
                                     <a
-                                        href={academicDegree[0].website}
+                                        href={academicDegrees[0].website}
                                         className="text-white underline decoration-dotted underline-offset-4"
                                         target="_blank"
                                     >
-                                        {academicDegree[0].institution}
+                                        {academicDegrees[0].institution}
                                     </a>
                                     .
                                 </>
                             ) : (
                                 <>
                                     I am currently pursuing my{" "}
-                                    {academicDegree[0].type} in{" "}
-                                    {academicDegree[0].major} from{" "}
+                                    {academicDegrees[0].type} in{" "}
+                                    {academicDegrees[0].major} from{" "}
                                     <a
-                                        href={academicDegree[0].website}
+                                        href={academicDegrees[0].website}
                                         className="text-white underline decoration-dotted underline-offset-4"
                                         target="_blank"
                                     >
-                                        {academicDegree[0].institution}
+                                        {academicDegrees[0].institution}
                                     </a>
                                     .
                                 </>
                             )}
                         </>
                     )}{" "}
-                    {workExperience.length > 0 && (
+                    {workExperiences.length > 0 && (
                         <>
-                            {workExperience[0].duration.end ? (
+                            {workExperiences[0].duration.end ? (
                                 <>
                                     I have worked as a{" "}
-                                    {workExperience[0].position} at{" "}
+                                    {workExperiences[0].position} at{" "}
                                     <a
-                                        href={workExperience[0].company.website}
+                                        href={
+                                            workExperiences[0].company.website
+                                        }
                                         className="text-white underline decoration-dotted underline-offset-4"
                                         target="_blank"
                                     >
-                                        {workExperience[0].company.name}
+                                        {workExperiences[0].company.name}
                                     </a>{" "}
                                     for{" "}
                                     {formatDistance(
                                         new Date(
-                                            workExperience[0].duration.start
+                                            workExperiences[0].duration.start
                                         ),
-                                        new Date(workExperience[0].duration.end)
+                                        new Date(
+                                            workExperiences[0].duration.end
+                                        )
                                     )}
                                     .
                                 </>
                             ) : (
                                 <>
                                     I am working as a{" "}
-                                    {workExperience[0].position} at{" "}
+                                    {workExperiences[0].position} at{" "}
                                     <a
-                                        href={workExperience[0].company.website}
+                                        href={
+                                            workExperiences[0].company.website
+                                        }
                                         className="text-white underline decoration-dotted underline-offset-4"
                                         target="_blank"
                                     >
-                                        {workExperience[0].company.name}
+                                        {workExperiences[0].company.name}
                                     </a>{" "}
                                     for past{" "}
                                     {formatDistance(
                                         new Date(
-                                            workExperience[0].duration.start
+                                            workExperiences[0].duration.start
                                         ),
                                         new Date()
                                     )}

@@ -78,27 +78,39 @@ const Project = ({ project }: { project: UserRepo }) => {
     );
 };
 
-export const Projects = ({ projects }: { projects: UserRepo[] }) => (
+export const Projects = ({
+    projects,
+    isLoading,
+}: {
+    projects: UserRepo[];
+    isLoading: boolean;
+}) => (
     <div className="projects">
         <h4 className="pb-1 text-xl font-bold text-tertiary sm:pb-2 sm:text-2xl">
             Projects
         </h4>
-        {projects && projects?.length >= 1 ? (
+        {!isLoading ? (
             <>
-                {projects?.map((repo, index) => {
-                    if (!repo) return null;
-                    return (
-                        <>
-                            <Project
-                                project={repo}
-                                key={`${repo.repoData.owner}/${repo.repoData.repo}`}
-                            />
-                            {index < projects.length - 1 && (
-                                <div className="projects-separator my-5 border-b border-dotted border-tertiary"></div>
-                            )}
-                        </>
-                    );
-                })}
+                {projects.length >= 1 ? (
+                    <>
+                        {projects?.map((repo, index) => {
+                            if (!repo) return null;
+                            return (
+                                <>
+                                    <Project
+                                        project={repo}
+                                        key={`${repo.repoData.owner}/${repo.repoData.repo}`}
+                                    />
+                                    {index < projects.length - 1 && (
+                                        <div className="projects-separator my-5 border-b border-dotted border-tertiary"></div>
+                                    )}
+                                </>
+                            );
+                        })}
+                    </>
+                ) : (
+                    <div>Looks like there are no projects.</div>
+                )}
             </>
         ) : (
             <Loading />
