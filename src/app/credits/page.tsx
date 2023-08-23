@@ -13,8 +13,8 @@ export default function Credits() {
                     title="Utsav Gurmachhan Magar"
                     subTitle="Website Credits"
                 />
+                <div>Page under Construction</div>
             </div>
-            <div>Page under Construction</div>
             <Sidebar>I SAID ITS UNDER CONSTRUCTION</Sidebar>
         </main>
     );
