@@ -20,8 +20,8 @@ const WorkExperience = ({
                                 href={workExperience.company.website}
                                 className="text-primary underline decoration-dotted underline-offset-4 "
                             >
-                                {workExperience.company.name},
-                            </a>{" "}
+                                {workExperience.company.name}
+                            </a>{", "}
                             {workExperience.position}
                         </div>
                         <div>{workExperience.company.location}</div>
