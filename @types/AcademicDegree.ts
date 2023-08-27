@@ -4,7 +4,7 @@ export type AcademicDegree = {
     type: string;
     location: string;
     end?: string;
-	major: string;
+    major: string;
     description: string;
     website: string;
 };

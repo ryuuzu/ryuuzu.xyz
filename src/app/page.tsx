@@ -1,6 +1,6 @@
 "use client";
 
-import { AcademicDegrees } from "@/components/AcademicDegree";
+import { AcademicDegrees } from "@/components/AcademicDegrees";
 import { CvSeparator } from "@/components/CvSeparator";
 import { Header } from "@/components/Header";
 import { Projects } from "@/components/Project";
@@ -9,8 +9,6 @@ import { WorkExperiences } from "@/components/WorkExperience";
 import { GithubService } from "@/services/GithubService";
 import { RyuuApiService } from "@/services/RyuuApiService";
 import { formatDistance } from "date-fns";
-import { Copyright, DownloadCircle, Medal1St, PinAlt } from "iconoir-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { AcademicDegree } from "../../@types/AcademicDegree";
@@ -18,106 +16,24 @@ import { UserRepo } from "../../@types/GithubRepository";
 import { WorkExperience } from "../../@types/WorkExperience";
 
 export default function Home() {
-    const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([
-        {
-            company: {
-                name: "Crocus Pearl Technologies",
-                location: "Khusibun, Kathmandu, Nepal",
-                website: "https://crocuspearl.com/",
-            },
-            position: "Back-end Developer",
-            description:
-                "A company that specializes in development, design and marketing.",
-            duration: {
-                start: "2023/05/02",
-            },
-            skills: ["Django", "Django Rest Framework", "JavaScript", "MySQL"],
-        },
-        {
-            company: {
-                name: "Crocus Pearl Technologies",
-                location: "Khusibun, Kathmandu, Nepal",
-                website: "https://crocuspearl.com/",
-            },
-            position: "Back-end Intern",
-            description:
-                "A company that specializes in development, design and marketing.",
-            duration: {
-                start: "2023/01/01",
-                end: "2023-05-01",
-            },
-            skills: [
-                "Django",
-                "Django Rest Framework",
-                "JavaScript",
-                "PHP",
-                "Laravel",
-                "MySQL",
-            ],
-        },
-        {
-            company: {
-                name: "Islington College",
-                location: "Kamalpokhari, Kathmandu, Nepal",
-                website: "https://islington.edu.np/",
-            },
-            position: "Teaching Assistant",
-            duration: {
-                start: "2022/11/01",
-                end: "2023/02/01",
-            },
-            description:
-                "An institution that specializes in IT and Business degrees, ranking among the top colleges in Nepal.",
-            tasks: [
-                "Assisted in Programming (Java) Module for the Academics Department of the college by answering student queries and helping them with their assignments.",
-                "Led a team of developers and designers to complete an internal system for the college.",
-                "Decluttered and improved the system database by migrating to MySQL and designing new database schema.",
-            ],
-            skills: ["Python", "Django", "JavaScript", "TailwindCSS", "MySQL"],
-        },
-    ]);
+    const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>(
+        []
+    );
+    const [isWorkExperiencesLoading, setIsWorkExperiencesLoading] =
+        useState<boolean>(true);
 
-    const [academicDegrees, setAcademicDegrees] = useState<AcademicDegree[]>([
-        {
-            name: "B.Sc. (Hons) Computing",
-            institution: "Islington College",
-            type: "Bachelor's Degree",
-            location: "Kamalpokhari, Kathmandu",
-            website: "https://islington.edu.np/",
-            major: "Computing",
-            description: "Currently pursuing a degree in Computing.",
-        },
-        {
-            name: "SLC",
-            institution: "Moonlight Higher Secondary School",
-            type: "High-school Degree",
-            location: "Kumaripati, Lalitpur",
-            website: "https://molihss.edu.np/",
-            end: "2020",
-            major: "Science",
-            description:
-                "Completed high-school degree in Science stream focused on Physics, Chemistry and Mathematics.",
-        },
-        {
-            name: "SEE",
-            institution: "Nightingale International Secondary School",
-            type: "Secondary Education",
-            location: "Kupondole, Lalitpur",
-            website: "https://nightingale.edu.np/",
-            end: "2018",
-            major: "Science",
-            description:
-                "Completed secondary education with distinction in English, Mathematics and Science.",
-        },
-    ]);
+    const [academicDegrees, setAcademicDegrees] = useState<AcademicDegree[]>(
+        []
+    );
+    const [isAcademicDegreesLoading, setIsAcademicDegreesLoading] =
+        useState<boolean>(true);
 
     const [projects, setProjects] = useState<UserRepo[]>([]);
-    const [isProjectsLoading, setIsProjectLoading] = useState<boolean>(false);
+    const [isProjectsLoading, setIsProjectLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const githubService = new GithubService();
         const ryuuApiService = new RyuuApiService();
-        setIsProjectLoading(true);
         githubService
             .getPinnedReposWithLanguagesAndCommit()
             .then((repos) => {
@@ -126,6 +42,24 @@ export default function Home() {
             })
             .catch((error) => {
                 setIsProjectLoading(false);
+            });
+        ryuuApiService
+            .getAcademicDegrees()
+            .then((academicDegrees) => {
+                setAcademicDegrees(academicDegrees);
+                setIsAcademicDegreesLoading(false);
+            })
+            .catch((error) => {
+                setIsAcademicDegreesLoading(false);
+            });
+        ryuuApiService
+            .getWorkExperiences()
+            .then((workExperiences) => {
+                setWorkExperiences(workExperiences);
+                setIsWorkExperiencesLoading(false);
+            })
+            .catch((error) => {
+                setIsWorkExperiencesLoading(false);
             });
     }, []);
 
@@ -138,11 +72,14 @@ export default function Home() {
                     title="Utsav Gurmachhan Magar"
                     subTitle="Back-end Developer"
                 />
-                <WorkExperiences workExperiences={workExperiences} />
+                <WorkExperiences workExperiences={workExperiences} isLoading={isWorkExperiencesLoading} />
                 <CvSeparator />
                 <Projects projects={projects} isLoading={isProjectsLoading} />
                 <CvSeparator />
-                <AcademicDegrees academicDegrees={academicDegrees} />
+                <AcademicDegrees
+                    academicDegrees={academicDegrees}
+                    isLoading={isAcademicDegreesLoading}
+                />
             </div>
             <Sidebar>
                 Hi, I&apos;m{" "}

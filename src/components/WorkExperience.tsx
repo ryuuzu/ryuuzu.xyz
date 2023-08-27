@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { WorkExperience } from "../../@types/WorkExperience";
 import Loading from "./Loading";
 
@@ -6,10 +7,6 @@ const WorkExperience = ({
 }: {
     workExperience: WorkExperience;
 }) => {
-    let startDate = new Date(workExperience.duration.start);
-    let endDate = workExperience.duration.end
-        ? new Date(workExperience.duration.end)
-        : "Present";
     return (
         <>
             <div>
@@ -27,15 +24,11 @@ const WorkExperience = ({
                         <div>{workExperience.company.location}</div>
                     </div>
                     <div>
-                        {startDate.toLocaleString("default", {
-                            month: "short",
-                            year: "numeric",
-                        })}{" "}
+                        {format(new Date(workExperience.duration.start), "LLL yyyy")}{" "}
                         -{" "}
-                        {endDate.toLocaleString("default", {
-                            month: "short",
-                            year: "numeric",
-                        })}
+                        {workExperience.duration.end
+                            ? format(new Date(workExperience.duration.end), "LLL yyyy")
+                            : "Present"}
                     </div>
                 </div>
                 <div className="work-experience-description mt-1 text-sm font-medium  ">
@@ -66,31 +59,40 @@ const WorkExperience = ({
 };
 
 export const WorkExperiences = ({
-    workExperiences,
+    workExperiences, isLoading
 }: {
     workExperiences: WorkExperience[];
+    isLoading: boolean;
 }) => (
     <div className="work-experiences pt-4 sm:pt-10">
         <h4 className="pb-1 text-xl font-bold text-tertiary sm:pb-2 sm:text-2xl">
             Work
         </h4>
-        {workExperiences && workExperiences?.length >= 1 ? (
-            <>
-                {workExperiences.map((workExperience, index) => {
-                    return (
-                        <div
-                            key={`${workExperience.company.name.toLowerCase()}-work-experience-${index}`}
-                        >
-                            <WorkExperience workExperience={workExperience} />
-                            {index < workExperiences.length - 1 && (
-                                <div className="work-experience-separator my-5 border-b border-dotted border-tertiary"></div>
-                            )}
-                        </div>
-                    );
-                })}
-            </>
-        ) : (
-            <Loading />
-        )}
+        {
+            !isLoading ? (
+                <>
+                    {workExperiences.length >= 1 ? (
+                        <>
+                            {workExperiences.map((workExperience, index) => {
+                                return (
+                                    <div
+                                        key={`${workExperience.company.name.toLowerCase()}-work-experience-${index}`}
+                                    >
+                                        <WorkExperience workExperience={workExperience} />
+                                        {index < workExperiences.length - 1 && (
+                                            <div className="work-experience-separator my-5 border-b border-dotted border-tertiary"></div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </>
+                    ) : (
+                        <div>Looks like there are no work experiences.</div>
+                    )}
+                </>
+            ) : (
+                <Loading />
+            )
+        }
     </div>
 );

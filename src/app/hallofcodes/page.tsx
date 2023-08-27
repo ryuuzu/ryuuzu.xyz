@@ -1,6 +1,7 @@
 "use client";
 
 import { Header } from "@/components/Header";
+import Loading from "@/components/Loading";
 import { Sidebar } from "@/components/Sidebar";
 import { RyuuApiService } from "@/services/RyuuApiService";
 import { Fira_Code } from "next/font/google";
@@ -48,12 +49,19 @@ export default function HallOfCodes() {
     const [currentCodeStyle, setCurrentCodeStyle] = useState(codeStyles[0]);
 
     const [codeAwards, setCodeAwards] = useState<CodeAward[]>([]);
+    const [isCodeAwardsLoading, setIsCodeAwardsLoading] = useState(true);
 
     useEffect(() => {
         const ryuuApiService = new RyuuApiService();
-        ryuuApiService.getCodeAwards().then((codeAwards) => {
-            setCodeAwards(codeAwards);
-        });
+        ryuuApiService
+            .getCodeAwards()
+            .then((codeAwards) => {
+                setCodeAwards(codeAwards);
+                setIsCodeAwardsLoading(false);
+            })
+            .catch((error) => {
+                setIsCodeAwardsLoading(false);
+            });
     }, []);
 
     return (
@@ -65,58 +73,71 @@ export default function HallOfCodes() {
                     title="Utsav Gurmachhan Magar"
                     subTitle="Hall of Codes"
                 />
-                <ol className="list-decimal mt-4 lg:mt-8">
-                    {codeAwards.map((codeAward) => (
-                        <li key={codeAward.id}>
-                            <h1 className="font-bold text-lg">
-                                {codeAward.title}
-                            </h1>
-                            <div
-                                className="text-xs md:text-sm"
-                                dangerouslySetInnerHTML={{
-                                    __html: codeAward.description,
-                                }}
-                            ></div>
-                            <div
-                                className={`whitespace-pre-wrap relative text-xs`}
-                            >
-                                <SyntaxHighlighter
-                                    language={codeAward.language}
-                                    codeTagProps={{ style: firaCode.style }}
-                                    style={currentCodeStyle.style}
-                                    showLineNumbers
-                                    // wrapLongLines
-                                >
-                                    {codeAward.codeBlock}
-                                </SyntaxHighlighter>
-                                <select
-                                    name="currentCodeStyle"
-                                    className="absolute right-4 top-2 rounded-md z-10"
-                                    id="code-style"
-                                    value={currentCodeStyle.id}
-                                    onChange={(event) =>
-                                        setCurrentCodeStyle(
-                                            codeStyles.filter(
-                                                (codeStyle) =>
-                                                    codeStyle.id ===
-                                                    event.target.value
-                                            )[0]
-                                        )
-                                    }
-                                >
-                                    {codeStyles.map((codeStyle) => (
-                                        <option
-                                            value={codeStyle.id}
-                                            key={codeStyle.id}
+                <div className="code-awards">
+                    {isCodeAwardsLoading ? (
+                        <Loading />
+                    ) : codeAwards.length >= 1 ? (
+                        <ol className="list-decimal mt-4 lg:mt-8">
+                            {codeAwards.map((codeAward) => (
+                                <li key={codeAward.id}>
+                                    <h1 className="font-bold text-lg">
+                                        {codeAward.title}
+                                    </h1>
+                                    <div
+                                        className="text-xs md:text-sm"
+                                        dangerouslySetInnerHTML={{
+                                            __html: codeAward.description,
+                                        }}
+                                    ></div>
+                                    <div
+                                        className={`whitespace-pre-wrap relative text-xs`}
+                                    >
+                                        <SyntaxHighlighter
+                                            language={codeAward.language}
+                                            codeTagProps={{
+                                                style: firaCode.style,
+                                            }}
+                                            style={currentCodeStyle.style}
+                                            showLineNumbers
+                                            // wrapLongLines
                                         >
-                                            {codeStyle.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </li>
-                    ))}
-                </ol>
+                                            {codeAward.codeBlock}
+                                        </SyntaxHighlighter>
+                                        <select
+                                            name="currentCodeStyle"
+                                            className="absolute right-4 top-2 rounded-md z-10"
+                                            id="code-style"
+                                            value={currentCodeStyle.id}
+                                            onChange={(event) =>
+                                                setCurrentCodeStyle(
+                                                    codeStyles.filter(
+                                                        (codeStyle) =>
+                                                            codeStyle.id ===
+                                                            event.target.value
+                                                    )[0]
+                                                )
+                                            }
+                                        >
+                                            {codeStyles.map((codeStyle) => (
+                                                <option
+                                                    value={codeStyle.id}
+                                                    key={codeStyle.id}
+                                                >
+                                                    {codeStyle.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                    ) : (
+                        <div className="text-center">
+                            No code block has been good enough to receive a spot
+                            in the Hall of Codes.
+                        </div>
+                    )}
+                </div>
             </div>
             <Sidebar>
                 Hi, I see you have made it into the Hall of Codes of my website.
