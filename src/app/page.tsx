@@ -67,12 +67,15 @@ export default function Home() {
         <main
             className={`flex min-h-screen w-full flex-col items-center sm:items-stretch md:flex-row`}
         >
-            <div className="w-full flex-grow overflow-auto bg-white px-5 py-3 text-primary sm:min-h-screen sm:py-10 md:max-h-screen md:w-3/5">
+            <div className="w-full flex-grow overflow-auto bg-white px-5 py-3 text-primary sm:min-h-screen sm:py-10 md:max-h-screen md:w-3/5 scrollbar-thumb-primary scrollbar-thin scrollbar-thumb-rounded-full">
                 <Header
                     title="Utsav Gurmachhan Magar"
                     subTitle="Back-end Developer"
                 />
-                <WorkExperiences workExperiences={workExperiences} isLoading={isWorkExperiencesLoading} />
+                <WorkExperiences
+                    workExperiences={workExperiences}
+                    isLoading={isWorkExperiencesLoading}
+                />
                 <CvSeparator />
                 <Projects projects={projects} isLoading={isProjectsLoading} />
                 <CvSeparator />

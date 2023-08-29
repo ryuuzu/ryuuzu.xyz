@@ -97,15 +97,14 @@ export const Projects = ({
                         {projects?.map((repo, index) => {
                             if (!repo) return null;
                             return (
-                                <>
-                                    <Project
-                                        project={repo}
-                                        key={`${repo.repoData.owner}/${repo.repoData.repo}`}
-                                    />
+                                <div
+                                    key={`${repo.repoData.owner}/${repo.repoData.repo}`}
+                                >
+                                    <Project project={repo} />
                                     {index < projects.length - 1 && (
                                         <div className="projects-separator my-5 border-b border-dotted border-tertiary"></div>
                                     )}
-                                </>
+                                </div>
                             );
                         })}
                     </>

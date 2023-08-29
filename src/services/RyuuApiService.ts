@@ -5,7 +5,7 @@ import { WorkExperience } from "../../@types/WorkExperience";
 
 export class RyuuApiService {
     public async preApiCall(): Promise<void> {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
     public async getSocialLinks(): Promise<SocialLink[]> {
