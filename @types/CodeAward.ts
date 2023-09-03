@@ -3,5 +3,5 @@ export interface CodeAward {
     title: string;
     description: string;
     language: string;
-    codeBlock: string;
+    code_block: string;
 }

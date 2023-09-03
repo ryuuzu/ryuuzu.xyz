@@ -79,7 +79,9 @@ export default function HallOfCodes() {
                     ) : codeAwards.length >= 1 ? (
                         <ol className="list-decimal mt-4 lg:mt-8">
                             {codeAwards.map((codeAward) => (
-                                <li key={codeAward.id}>
+                                <li
+                                    key={`${codeAward.title}-${codeAward.language}`}
+                                >
                                     <h1 className="font-bold text-lg">
                                         {codeAward.title}
                                     </h1>
@@ -101,7 +103,7 @@ export default function HallOfCodes() {
                                             showLineNumbers
                                             // wrapLongLines
                                         >
-                                            {codeAward.codeBlock}
+                                            {codeAward.code_block}
                                         </SyntaxHighlighter>
                                         <select
                                             name="currentCodeStyle"
