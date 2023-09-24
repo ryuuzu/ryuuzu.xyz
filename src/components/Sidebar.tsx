@@ -113,171 +113,192 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
             </a>
             {!loading && status?.activities ? (
                 <>
-                    <PrimaryCvSeparator />
-                    <h1 className="pb-1 text-lg font-bold text-tertiary sm:pb-2 sm:text-xl">
-                        {status?.activities.length > 1
-                            ? "Current Activities"
-                            : "Current Activity"}
-                    </h1>
-                    {status?.activities
-                        .filter((activity) => activity.name.includes("Spotify"))
-                        .map((activity) => (
-                            <div
-                                key={activity.id}
-                                className="flex flex-row items-center gap-2 md:gap-4"
-                            >
-                                {getIconFromDiscordActivity(
-                                    activity.name,
-                                    "h-full text-xl md:text-2xl"
-                                )}
-                                <div className="song-details w-full h-fit flex flex-row justify-between items-center">
-                                    <div className="song-info flex flex-col gap-1">
-                                        <a
-                                            className="song-title text-lg font-bold cursor-pointer hover:underline"
-                                            href={
-                                                "https://open.spotify.com/track/" +
-                                                status.spotify?.track_id
-                                            }
-                                            target="_blank"
-                                        >
-                                            {activity.details}
-                                        </a>
-                                        <div className="artist-name text-sm">
-                                            {activity.state.replaceAll(
-                                                ";",
-                                                ","
-                                            )}{" "}
-                                            (on {activity.assets?.large_text})
+                    {status?.activities.length > 0 && (
+                        <>
+                            <PrimaryCvSeparator />
+                            <h1 className="pb-1 text-lg font-bold text-tertiary sm:pb-2 sm:text-xl">
+                                {status?.activities.length > 1
+                                    ? "Current Activities"
+                                    : "Current Activity"}
+                            </h1>
+                            {status?.activities
+                                .filter((activity) =>
+                                    activity.name.includes("Spotify")
+                                )
+                                .map((activity) => (
+                                    <div
+                                        key={activity.id}
+                                        className="flex flex-row items-center gap-2 md:gap-4"
+                                    >
+                                        {getIconFromDiscordActivity(
+                                            activity.name,
+                                            "h-full text-xl md:text-2xl"
+                                        )}
+                                        <div className="song-details w-full h-fit flex flex-row justify-between items-center">
+                                            <div className="song-info flex flex-col gap-1">
+                                                <a
+                                                    className="song-title text-lg font-bold cursor-pointer hover:underline"
+                                                    href={
+                                                        "https://open.spotify.com/track/" +
+                                                        status.spotify?.track_id
+                                                    }
+                                                    target="_blank"
+                                                >
+                                                    {activity.details}
+                                                </a>
+                                                <div className="artist-name text-sm">
+                                                    {activity.state.replaceAll(
+                                                        ";",
+                                                        ","
+                                                    )}{" "}
+                                                    (on{" "}
+                                                    {
+                                                        activity.assets
+                                                            ?.large_text
+                                                    }
+                                                    )
+                                                </div>
+                                            </div>
+                                            <div className="song-progres max-h-full">
+                                                <Progress
+                                                    type="circle"
+                                                    percent={
+                                                        ((currentTime.getTime() -
+                                                            activity.timestamps
+                                                                ?.start!) /
+                                                            (activity.timestamps
+                                                                ?.end! -
+                                                                activity
+                                                                    .timestamps
+                                                                    ?.start!)) *
+                                                        100
+                                                    }
+                                                    width={60}
+                                                    theme={{
+                                                        success: {
+                                                            symbol: (
+                                                                <Image
+                                                                    src={
+                                                                        status
+                                                                            .spotify
+                                                                            ?.album_art_url ||
+                                                                        "💿"
+                                                                    }
+                                                                    width={50}
+                                                                    height={50}
+                                                                    className="rounded-full ring-tertiary ring-2"
+                                                                    alt="Current Playing Album Art"
+                                                                />
+                                                            ),
+                                                            color: "white",
+                                                            trailColor:
+                                                                "#B4B8C635",
+                                                        },
+                                                    }}
+                                                    symbolClassName={
+                                                        "animate-spin-slow"
+                                                    }
+                                                    status={"success"}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="song-progres max-h-full">
-                                        <Progress
-                                            type="circle"
-                                            percent={
-                                                ((currentTime.getTime() -
-                                                    activity.timestamps
-                                                        ?.start!) /
-                                                    (activity.timestamps?.end! -
-                                                        activity.timestamps
-                                                            ?.start!)) *
-                                                100
-                                            }
-                                            width={60}
-                                            theme={{
-                                                success: {
-                                                    symbol: (
+                                ))}
+                            {status?.activities
+                                .filter(
+                                    (activity) =>
+                                        !activity.name.includes("Spotify")
+                                )
+                                .map((activity) => (
+                                    <div key={activity.id}>
+                                        <SecondaryCvSeparator className="my-2 opacity-50 mx-5" />
+                                        <div className="flex flex-row items-center gap-2 md:gap-4">
+                                            {getIconFromDiscordActivity(
+                                                activity.name,
+                                                "h-full text-xl md:text-2xl"
+                                            )}
+                                            <div className="w-full h-fit flex flex-row justify-between items-center">
+                                                <div>
+                                                    <div className="text-lg font-bold">
+                                                        {activity.name}
+                                                    </div>
+                                                    <div className="text-sm">
+                                                        <div>
+                                                            {activity.details ||
+                                                                "Started " +
+                                                                    formatDistanceToNow(
+                                                                        new Date(
+                                                                            activity
+                                                                                .timestamps
+                                                                                ?.start!
+                                                                        ),
+                                                                        {
+                                                                            addSuffix:
+                                                                                true,
+                                                                        }
+                                                                    )}
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-xs">
+                                                        {activity.state && (
+                                                            <div>
+                                                                {activity.state}
+                                                            </div>
+                                                        )}
+                                                        {activity.assets
+                                                            ?.large_text && (
+                                                            <span>
+                                                                {
+                                                                    activity
+                                                                        .assets
+                                                                        ?.large_text
+                                                                }
+                                                            </span>
+                                                        )}
+                                                        {activity.assets
+                                                            ?.small_text && (
+                                                            <>
+                                                                {" "}
+                                                                -{" "}
+                                                                <span>
+                                                                    {
+                                                                        activity
+                                                                            .assets
+                                                                            ?.small_text
+                                                                    }
+                                                                </span>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="max-h-full">
+                                                    {activity.assets
+                                                        ?.large_image ? (
                                                         <Image
                                                             src={
-                                                                status.spotify
-                                                                    ?.album_art_url ||
-                                                                "💿"
+                                                                activity.assets
+                                                                    ?.large_image
+                                                                    ? "https://" +
+                                                                      activity.assets?.large_image.split(
+                                                                          "https/"
+                                                                      )[1]
+                                                                    : "💿"
                                                             }
-                                                            width={50}
-                                                            height={50}
+                                                            width={60}
+                                                            height={60}
                                                             className="rounded-full ring-tertiary ring-2"
                                                             alt="Current Playing Album Art"
                                                         />
-                                                    ),
-                                                    color: "white",
-                                                    trailColor: "#B4B8C635",
-                                                },
-                                            }}
-                                            symbolClassName={
-                                                "animate-spin-slow"
-                                            }
-                                            status={"success"}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    {status?.activities
-                        .filter(
-                            (activity) => !activity.name.includes("Spotify")
-                        )
-                        .map((activity) => (
-                            <div key={activity.id}>
-                                <SecondaryCvSeparator className="my-2 opacity-50 mx-5" />
-                                <div className="flex flex-row items-center gap-2 md:gap-4">
-                                    {getIconFromDiscordActivity(
-                                        activity.name,
-                                        "h-full text-xl md:text-2xl"
-                                    )}
-                                    <div className="w-full h-fit flex flex-row justify-between items-center">
-                                        <div>
-                                            <div className="text-lg font-bold">
-                                                {activity.name}
-                                            </div>
-                                            <div className="text-sm">
-                                                <div>
-                                                    {activity.details ||
-                                                        "Started " +
-                                                            formatDistanceToNow(
-                                                                new Date(
-                                                                    activity
-                                                                        .timestamps
-                                                                        ?.start!
-                                                                ),
-                                                                {
-                                                                    addSuffix:
-                                                                        true,
-                                                                }
-                                                            )}
+                                                    ) : (
+                                                        <></>
+                                                    )}
                                                 </div>
                                             </div>
-                                            <div className="text-xs">
-                                                {activity.state && (
-                                                    <div>{activity.state}</div>
-                                                )}
-                                                {activity.assets
-                                                    ?.large_text && (
-                                                    <span>
-                                                        {
-                                                            activity.assets
-                                                                ?.large_text
-                                                        }
-                                                    </span>
-                                                )}
-                                                {activity.assets
-                                                    ?.small_text && (
-                                                    <>
-                                                        {" "}
-                                                        -{" "}
-                                                        <span>
-                                                            {
-                                                                activity.assets
-                                                                    ?.small_text
-                                                            }
-                                                        </span>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="max-h-full">
-                                            {activity.assets?.large_image ? (
-                                                <Image
-                                                    src={
-                                                        activity.assets
-                                                            ?.large_image
-                                                            ? "https://" +
-                                                              activity.assets?.large_image.split(
-                                                                  "https/"
-                                                              )[1]
-                                                            : "💿"
-                                                    }
-                                                    width={60}
-                                                    height={60}
-                                                    className="rounded-full ring-tertiary ring-2"
-                                                    alt="Current Playing Album Art"
-                                                />
-                                            ) : (
-                                                <></>
-                                            )}
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        ))}
+                                ))}
+                        </>
+                    )}
                 </>
             ) : (
                 <></>
