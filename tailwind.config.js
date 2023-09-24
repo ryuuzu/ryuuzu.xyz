@@ -21,6 +21,9 @@ module.exports = {
                 tertiary: "#B4B8C6ff",
                 white: "#f8f7ffff",
             },
+            animation: {
+                "spin-slow": "spin 5s linear infinite",
+            },
         },
     },
     plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
