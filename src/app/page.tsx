@@ -11,9 +11,9 @@ import { RyuuApiService } from "@/services/RyuuApiService";
 import { formatDistance } from "date-fns";
 import { useEffect, useState } from "react";
 
-import { AcademicDegree } from "../../@types/AcademicDegree";
-import { UserRepo } from "../../@types/GithubRepository";
-import { WorkExperience } from "../../@types/WorkExperience";
+import { AcademicDegree } from "../types/AcademicDegree";
+import { UserRepo } from "../types/GithubRepository";
+import { WorkExperience } from "../types/WorkExperience";
 
 export default function Home() {
     const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>(

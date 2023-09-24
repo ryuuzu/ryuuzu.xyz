@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { PinnedRepoData, UserRepo } from "../../@types/GithubRepository";
+import { PinnedRepoData, UserRepo } from "../types/GithubRepository";
 
 export class GithubService {
     private readonly baseUrl = "https://api.github.com";

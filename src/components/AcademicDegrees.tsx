@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { AcademicDegree } from "../../@types/AcademicDegree";
+import { AcademicDegree } from "../types/AcademicDegree";
 import Loading from "./Loading";
 
 const AcademicDegree = ({

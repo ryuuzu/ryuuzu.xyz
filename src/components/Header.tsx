@@ -1,7 +1,7 @@
 import { RyuuApiService } from "@/services/RyuuApiService";
 import { useEffect, useState } from "react";
 
-import { SocialLink } from "../../@types/SocialLink";
+import { SocialLink } from "../types/SocialLink";
 import { SocialLinks } from "./SocialLinks";
 
 export const Header = ({

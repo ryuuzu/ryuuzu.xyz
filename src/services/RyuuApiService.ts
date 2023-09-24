@@ -1,9 +1,10 @@
 import axios from "axios";
 
-import { AcademicDegree } from "../../@types/AcademicDegree";
-import { CodeAward } from "../../@types/CodeAward";
-import { SocialLink } from "../../@types/SocialLink";
-import { WorkExperience } from "../../@types/WorkExperience";
+import { AcademicDegree } from "../types/AcademicDegree";
+import { CodeAward } from "../types/CodeAward";
+import { Credit } from "../types/Credit";
+import { SocialLink } from "../types/SocialLink";
+import { WorkExperience } from "../types/WorkExperience";
 
 export class RyuuApiService {
     private readonly apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -25,6 +26,11 @@ export class RyuuApiService {
 
     public async getWorkExperiences(): Promise<WorkExperience[]> {
         const response = await axios.get(`${this.apiUrl}/work-experiences`);
+        return response.data;
+    }
+
+    public async getCredits(): Promise<Credit[]> {
+        const response = await axios.get(`${this.apiUrl}/credits`);
         return response.data;
     }
 }

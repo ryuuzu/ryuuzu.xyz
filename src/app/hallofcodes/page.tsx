@@ -13,7 +13,7 @@ import {
     oneDark,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-import { CodeAward } from "../../../@types/CodeAward";
+import { CodeAward } from "../../types/CodeAward";
 
 const firaCode = Fira_Code({
     subsets: [

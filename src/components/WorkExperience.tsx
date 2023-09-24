@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { WorkExperience } from "../../@types/WorkExperience";
+import { WorkExperience } from "../types/WorkExperience";
 import Loading from "./Loading";
 
 const WorkExperience = ({
