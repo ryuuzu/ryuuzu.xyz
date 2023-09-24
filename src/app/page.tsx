@@ -1,7 +1,7 @@
 "use client";
 
 import { AcademicDegrees } from "@/components/AcademicDegrees";
-import { CvSeparator } from "@/components/CvSeparator";
+import { PrimaryCvSeparator } from "@/components/CvSeparator";
 import { Header } from "@/components/Header";
 import { Projects } from "@/components/Project";
 import { Sidebar } from "@/components/Sidebar";
@@ -76,9 +76,9 @@ export default function Home() {
                     workExperiences={workExperiences}
                     isLoading={isWorkExperiencesLoading}
                 />
-                <CvSeparator />
+                <PrimaryCvSeparator />
                 <Projects projects={projects} isLoading={isProjectsLoading} />
-                <CvSeparator />
+                <PrimaryCvSeparator />
                 <AcademicDegrees
                     academicDegrees={academicDegrees}
                     isLoading={isAcademicDegreesLoading}

@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { WorkExperience } from "../types/WorkExperience";
 import Loading from "./Loading";
+import { SecondaryCvSeparator } from "./CvSeparator";
 
 const WorkExperience = ({
     workExperience,
@@ -80,7 +81,7 @@ export const WorkExperiences = ({
                                     >
                                         <WorkExperience workExperience={workExperience} />
                                         {index < workExperiences.length - 1 && (
-                                            <div className="work-experience-separator my-5 border-b border-dotted border-tertiary"></div>
+                                            <SecondaryCvSeparator />
                                         )}
                                     </div>
                                 );

@@ -1,6 +1,7 @@
 import { ArrowBlCircle, GitFork, Star } from "iconoir-react";
 
 import { UserRepo } from "../types/GithubRepository";
+import { SecondaryCvSeparator } from "./CvSeparator";
 import Loading from "./Loading";
 
 const Project = ({ project }: { project: UserRepo }) => {
@@ -102,7 +103,7 @@ export const Projects = ({
                                 >
                                     <Project project={repo} />
                                     {index < projects.length - 1 && (
-                                        <div className="projects-separator my-5 border-b border-dotted border-tertiary"></div>
+                                        <SecondaryCvSeparator />
                                     )}
                                 </div>
                             );
