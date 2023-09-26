@@ -209,9 +209,17 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                                     (activity) =>
                                         !activity.name.includes("Spotify")
                                 )
-                                .map((activity) => (
+                                .map((activity, index) => (
                                     <div key={activity.id}>
-                                        <SecondaryCvSeparator className="my-2 opacity-50 mx-5" />
+                                        {(status?.activities.filter(
+                                            (activity) =>
+                                                activity.name.includes(
+                                                    "Spotify"
+                                                )
+                                        ).length > 0 ||
+                                            index !== 0) && (
+                                            <SecondaryCvSeparator className="my-2 opacity-50 mx-5" />
+                                        )}
                                         <div className="flex flex-row items-center gap-2 md:gap-4">
                                             {getIconFromDiscordActivity(
                                                 activity.name,
