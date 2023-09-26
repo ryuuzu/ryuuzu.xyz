@@ -6,6 +6,8 @@ import "./globals.css";
 
 import { DM_Sans } from "next/font/google";
 
+import Providers from "./providers";
+
 const dmSans = DM_Sans({
     subsets: ["latin"],
     weight: ["400", "500", "700"],
@@ -28,15 +30,15 @@ export default function RootLayout({
                     strategy="afterInteractive"
                     dangerouslySetInnerHTML={{
                         __html: `
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "impchiwk8z");`,
+                            (function(c,l,a,r,i,t,y){
+                                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                            })(window, document, "clarity", "script", "impchiwk8z");`,
                     }}
                     id={"ms-clarity"}
                 />
-                {children}
+                <Providers>{children}</Providers>
             </body>
         </html>
     );
