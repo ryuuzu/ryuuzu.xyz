@@ -2,7 +2,7 @@ export interface Credit {
     title: string;
     link: string;
     description: string;
-    images?: {
+    images: {
         image: string;
         alt: string;
         title: string;

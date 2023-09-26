@@ -13,6 +13,16 @@ const nextConfig = {
                 hostname: "raw.githubusercontent.com",
                 port: "",
             },
+            {
+                protocol: "http",
+                hostname: "127.0.0.1",
+                port: "8000",
+            },
+            {
+                protocol: "https",
+                hostname: "api.ryuuzu.xyz",
+                port: "",
+            },
         ],
     },
     experimental: {
