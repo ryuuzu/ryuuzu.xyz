@@ -134,7 +134,7 @@ export default function HallOfCodes() {
                             ))}
                         </ol>
                     ) : (
-                        <div className="text-center">
+                        <div className="text-center mt-4 ">
                             No code block has been good enough to receive a spot
                             in the Hall of Codes.
                         </div>
