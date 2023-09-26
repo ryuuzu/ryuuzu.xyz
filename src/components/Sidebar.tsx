@@ -273,7 +273,9 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                                                 </div>
                                                 <div className="max-h-full">
                                                     {activity.assets
-                                                        ?.large_image ? (
+                                                        ?.large_image &&
+                                                    activity.application_id ===
+                                                        "782685898163617802" ? (
                                                         <Image
                                                             src={
                                                                 activity.assets
