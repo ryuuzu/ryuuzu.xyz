@@ -1,58 +1,75 @@
 import axios from "axios";
 
-import { PinnedRepoData, UserRepo } from "../types/GithubRepository";
+import {
+    LastCommitData,
+    Repository,
+    UserRepo,
+} from "../types/GithubRepository";
 
 export class GithubService {
     private readonly baseUrl = "https://api.github.com";
-    private readonly pinnedRepoBaseUrl = "https://gh-pinned-repos.egoist.dev";
 
     public async getRepos(): Promise<any> {
         const repos = await axios.get(`${this.baseUrl}/users/ryuuzu/repos`);
         return repos.data;
     }
 
-    public async getPinnedReposWithLanguagesAndCommit(): Promise<UserRepo[]> {
-        const pinnedRepos = await this.getPinnedRepos();
+    public async getProjectRepositoriesData(): Promise<UserRepo[]> {
+        const projectRepositoryNames = [
+            "ryuuzu/qr-share-react-native",
+            "ryuuzu/ryuuzu.xyz",
+            "ryuuzu/restaurant-page",
+            "ryuuzu/etch-a-sketch",
+            "ryuuzu/calculator",
+            "ryuuzu/todo-project",
+        ];
         const repos: UserRepo[] = [];
-        for (const pinnedRepo of pinnedRepos) {
-            const languages = await this.getRepoLanguages(
-                pinnedRepo.owner,
-                pinnedRepo.repo
+        for (const projectRepositoryName of projectRepositoryNames) {
+            const lastCommitData = await this.getRepoLastCommit(
+                projectRepositoryName
             );
-            const lastCommit = await this.getRepoLastCommit(
-                pinnedRepo.owner,
-                pinnedRepo.repo
+            const repoData = await this.getRepo(projectRepositoryName);
+            const languagesData = await this.getRepoLanguagesData(
+                projectRepositoryName
             );
+            const languages = await this.getRepoLanguages(languagesData);
             repos.push({
-                repoData: pinnedRepo,
+                repoData,
                 languages,
-                lastCommitUrl: (await axios.get(lastCommit.url)).data.html_url,
-                lastCommitData: lastCommit,
+                languagesData,
+                lastCommitData,
+                lastCommitUrl: (await axios.get(lastCommitData.url)).data
+                    .html_url,
             });
         }
+        console.log(repos);
         return repos;
     }
 
-    public async getPinnedRepos(): Promise<PinnedRepoData[]> {
-        const pinnedRepos = await axios.get(
-            `${this.pinnedRepoBaseUrl}/?username=ryuuzu`
-        );
-        return pinnedRepos.data;
+    public async getRepo(repoFullName: string): Promise<Repository> {
+        const repo = await axios.get(`${this.baseUrl}/repos/${repoFullName}`);
+        return repo.data;
     }
 
-    public async getRepoLanguages(
-        owner: string,
-        repo: string
-    ): Promise<string[]> {
+    public async getRepoLanguagesData(repoFullName: string): Promise<object> {
         const languages = await axios.get(
-            `${this.baseUrl}/repos/${owner}/${repo}/languages`
+            `${this.baseUrl}/repos/${repoFullName}/languages`
         );
-        return Object.keys(languages.data);
+        return languages.data;
     }
 
-    public async getRepoLastCommit(owner: string, repo: string): Promise<any> {
+    public async getRepoLanguages(languagesData: object): Promise<string[]> {
+        const total = Object.values(languagesData).reduce((a, b) => a + b, 0);
+        return Object.entries(languagesData).map(([key, value]) => {
+            return `${key}: ${((value / total) * 100).toFixed(2)}%`;
+        });
+    }
+
+    public async getRepoLastCommit(
+        repoFullName: string
+    ): Promise<LastCommitData> {
         const lastCommit = await axios.get(
-            `${this.baseUrl}/repos/${owner}/${repo}/commits`
+            `${this.baseUrl}/repos/${repoFullName}/commits`
         );
         return lastCommit.data[0].commit;
     }

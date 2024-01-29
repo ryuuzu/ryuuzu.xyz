@@ -35,7 +35,7 @@ export default function Home() {
         const githubService = new GithubService();
         const ryuuApiService = new RyuuApiService();
         githubService
-            .getPinnedReposWithLanguagesAndCommit()
+            .getProjectRepositoriesData()
             .then((repos) => {
                 setProjects(repos);
                 setIsProjectLoading(false);

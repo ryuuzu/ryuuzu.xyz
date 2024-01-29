@@ -12,14 +12,14 @@ const Project = ({ project }: { project: UserRepo }) => {
                     <div className="project-title flex items-center gap-2 text-primary">
                         <a
                             href={
-                                project.repoData.website
-                                    ? project.repoData.website
-                                    : project.repoData.link
+                                project.repoData.homepage
+                                    ? project.repoData.homepage
+                                    : project.repoData.html_url
                             }
                             target="_blank"
                             className="underline decoration-dotted underline-offset-4"
                         >
-                            {project.repoData.repo}
+                            {project.repoData.full_name.split("/")[1]}
                         </a>
                         <div className="flex items-center gap-1 no-underline">
                             <span className="font-bold">
@@ -29,7 +29,7 @@ const Project = ({ project }: { project: UserRepo }) => {
                         </div>
                         <div className="flex items-center gap-1 no-underline">
                             <span className="font-bold">
-                                {project.repoData.stars}
+                                {project.repoData.subscribers_count}
                             </span>
                             <Star />
                         </div>
@@ -67,7 +67,7 @@ const Project = ({ project }: { project: UserRepo }) => {
                     </div>
                     <div className="repo-link mt-1">
                         <a
-                            href={project.repoData.link}
+                            href={project.repoData.html_url}
                             target="_blank"
                             className="font-semibold decoration-1 hover:underline"
                         >
@@ -98,9 +98,7 @@ export const Projects = ({
                         {projects?.map((repo, index) => {
                             if (!repo) return null;
                             return (
-                                <div
-                                    key={`${repo.repoData.owner}/${repo.repoData.repo}`}
-                                >
+                                <div key={`${repo.repoData.full_name}`}>
                                     <Project project={repo} />
                                     {index < projects.length - 1 && (
                                         <SecondaryCvSeparator />
