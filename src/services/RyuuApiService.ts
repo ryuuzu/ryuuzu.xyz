@@ -1,3 +1,4 @@
+import { NotFoundCounter } from "@/types/NotFoundCounter";
 import axios from "axios";
 
 import { AcademicDegree } from "../types/AcademicDegree";
@@ -31,6 +32,11 @@ export class RyuuApiService {
 
     public async getCredits(): Promise<Credit[]> {
         const response = await axios.get(`${this.apiUrl}/credits`);
+        return response.data;
+    }
+
+    public async getNotFoundCounterData(): Promise<NotFoundCounter> {
+        const response = await axios.get(`${this.apiUrl}/not-found-counter`);
         return response.data;
     }
 }
