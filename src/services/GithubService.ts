@@ -42,7 +42,6 @@ export class GithubService {
                     .html_url,
             });
         }
-        console.log(repos);
         return repos;
     }
 

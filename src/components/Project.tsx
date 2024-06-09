@@ -5,6 +5,7 @@ import { SecondaryCvSeparator } from "./CvSeparator";
 import Loading from "./Loading";
 
 const Project = ({ project }: { project: UserRepo }) => {
+    console.log(project);
     return (
         <>
             <div className="project flex flex-col justify-between md:flex-row">

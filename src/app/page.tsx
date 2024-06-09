@@ -32,10 +32,9 @@ export default function Home() {
     const [isProjectsLoading, setIsProjectLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const githubService = new GithubService();
         const ryuuApiService = new RyuuApiService();
-        githubService
-            .getProjectRepositoriesData()
+        ryuuApiService
+            .getUserProjects()
             .then((repos) => {
                 setProjects(repos);
                 setIsProjectLoading(false);
