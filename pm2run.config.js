@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: "ryuuzu-portfolio-nextjs-5000",
-            cwd: "/root/projects/ryuuzu.xyz",
+            cwd: "/srv/ryuuzu.xyz/frontend",
             script: "npm",
             args: "start",
             env: {
