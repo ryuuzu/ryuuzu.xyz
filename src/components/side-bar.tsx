@@ -1,39 +1,22 @@
 import { formatDistanceToNow } from 'date-fns';
-import {
-  // Copyright,
-  // DownloadCircle,
-  // Home,
-  MapPin,
-  // Medal1st,
-} from 'iconoir-react';
-import {
-  // type ReactNode,
-  useEffect,
-  useState,
-} from 'react';
+import { MapPin } from 'iconoir-react';
 // import { useLocation } from 'react-router';
-// @ts-expect-error: This doesn't have a type definition
-import { Progress } from 'react-sweet-progress';
-import 'react-sweet-progress/lib/style.css';
 import { useLanyard } from 'react-use-lanyard';
 
-import {
-  PrimaryCvSeparator,
-  SecondaryCvSeparator,
-} from '@/components/cv-separator';
+import { PrimaryCvSeparator, SecondaryCvSeparator } from '@/components/cv-separator';
 import { getIconFromDiscordActivity } from '@/utils/get-icon-from-discord-activity';
 
 export function SideBar({ children }: { children: React.ReactNode }) {
   // const { pathname } = useLocation();
 
-  const [currentTime, setCurrentTime] = useState(new Date());
+  // const [currentTime, setCurrentTime] = useState(new Date());
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentTime(new Date());
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const { loading, status } = useLanyard({
     userId: '331829647568535563',
@@ -91,7 +74,8 @@ export function SideBar({ children }: { children: React.ReactNode }) {
   // ];
 
   return (
-    <div className="bg-primary w-full overflow-auto px-5 py-8 text-base text-white sm:min-h-screen sm:py-10 md:max-h-screen md:w-2/5 md:text-sm lg:text-base">
+    <div
+      className="bg-primary w-full overflow-auto px-5 py-8 text-base text-white sm:min-h-screen sm:py-10 md:max-h-screen md:w-2/5 md:text-sm lg:text-base">
       <div>{children}</div>
       {/*<div className="mt-5 flex flex-row justify-between gap-2 text-xl">*/}
       {/*  {navigationLinks*/}
@@ -201,15 +185,15 @@ export function SideBar({ children }: { children: React.ReactNode }) {
                 .map((activity, index) => (
                   <div key={activity.id}>
                     {(status?.activities.filter((activity) =>
-                      activity.name.includes('Spotify')
-                    ).length > 0 ||
+                        activity.name.includes('Spotify'),
+                      ).length > 0 ||
                       index !== 0) && (
                       <SecondaryCvSeparator className="mx-5 my-2 opacity-50" />
                     )}
                     <div className="flex flex-row items-center gap-2 md:gap-4">
                       {getIconFromDiscordActivity(
                         activity.name,
-                        'h-full text-xl md:text-2xl'
+                        'h-full text-xl md:text-2xl',
                       )}
                       <div className="flex h-fit w-full flex-row items-center justify-between">
                         <div>
@@ -220,14 +204,14 @@ export function SideBar({ children }: { children: React.ReactNode }) {
                             <div>
                               {activity.details ||
                                 'Started ' +
-                                  (activity.timestamps?.start
-                                    ? formatDistanceToNow(
-                                        new Date(activity.timestamps?.start),
-                                        {
-                                          addSuffix: true,
-                                        }
-                                      )
-                                    : '')}
+                                (activity.timestamps?.start
+                                  ? formatDistanceToNow(
+                                    new Date(activity.timestamps?.start),
+                                    {
+                                      addSuffix: true,
+                                    },
+                                  )
+                                  : '')}
                             </div>
                           </div>
                           <div className="text-xs">
@@ -246,14 +230,14 @@ export function SideBar({ children }: { children: React.ReactNode }) {
                         <div className="max-h-full">
                           {activity.assets?.large_image &&
                             activity.application_id ===
-                              '782685898163617802' && (
+                            '782685898163617802' && (
                               <>
                                 {activity.assets?.large_image ? (
                                   <img
                                     src={
                                       'https://' +
                                       activity.assets?.large_image.split(
-                                        'https/'
+                                        'https/',
                                       )[1]
                                     }
                                     width={60}
@@ -274,7 +258,8 @@ export function SideBar({ children }: { children: React.ReactNode }) {
                                     strokeLinejoin="round"
                                     className="feather feather-music"
                                   >
-                                    <path d="M12 3v10.55a4 4 0 1 0 2 3.45M12 3L8 5m4-2l4 2m-4 0v10.55a4 4 0 1 1-2-3.45V3z"></path>
+                                    <path
+                                      d="M12 3v10.55a4 4 0 1 0 2 3.45M12 3L8 5m4-2l4 2m-4 0v10.55a4 4 0 1 1-2-3.45V3z"></path>
                                   </svg>
                                 )}
                               </>

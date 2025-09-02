@@ -62,7 +62,8 @@ export const Home = () => {
     <main
       className={`flex min-h-screen w-full flex-col items-center sm:items-stretch md:flex-row`}
     >
-      <div className="text-primary scrollbar-thumb-primary scrollbar-thin scrollbar-thumb-rounded-full w-full flex-grow overflow-auto bg-white px-5 py-3 sm:min-h-screen sm:py-10 md:max-h-screen md:w-3/5">
+      <div
+        className="text-primary scrollbar-thumb-primary scrollbar-thin scrollbar-thumb-rounded-full w-full flex-grow overflow-auto bg-white px-5 py-3 sm:min-h-screen sm:py-10 md:max-h-screen md:w-3/5">
         <Header title="Utsav Gurmachhan Magar" subTitle="Back-end Developer" />
         <WorkExperiences
           workExperiences={workExperiences}
@@ -160,7 +161,7 @@ export const Home = () => {
                 for{' '}
                 {formatDistance(
                   new Date(workExperiences[0].duration.start),
-                  new Date(workExperiences[0].duration.end)
+                  new Date(workExperiences[0].duration.end),
                 )}
                 .
               </>
@@ -177,7 +178,7 @@ export const Home = () => {
                 for past{' '}
                 {formatDistance(
                   new Date(workExperiences[0].duration.start),
-                  new Date()
+                  new Date(),
                 )}
                 .
               </>
