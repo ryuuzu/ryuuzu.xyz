@@ -1,41 +1,43 @@
 {
-    "name": "ryuuzu.xyz",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start -p 5000",
-        "lint": "next lint"
-    },
-    "dependencies": {
-        "@types/node": "20.4.5",
-        "@types/react": "18.2.18",
-        "@types/react-dom": "18.2.7",
-        "autoprefixer": "10.4.14",
-        "axios": "^1.4.0",
-        "date-fns": "^2.30.0",
-        "eslint": "8.46.0",
-        "eslint-config-next": "13.4.12",
-        "iconoir-react": "^6.11.0",
-        "jotai": "^2.4.2",
-        "next": "^13.5.6",
-        "postcss": "^8.4.33",
-        "prettier-plugin-organize-imports": "^3.2.3",
-        "prettier-plugin-tailwindcss": "^0.4.1",
-        "react": "18.2.0",
-        "react-dom": "18.2.0",
-        "react-sweet-progress": "^1.1.2",
-        "react-syntax-highlighter": "^15.5.0",
-        "react-use-lanyard": "^0.3.0",
-        "tailwindcss": "3.3.3",
-        "typescript": "5.1.6"
-    },
-    "devDependencies": {
-        "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
-        "@swc-jotai/react-refresh": "^0.1.0",
-        "@types/react-syntax-highlighter": "^15.5.7",
-        "prettier": "3.0.1",
-        "tailwind-scrollbar": "^3.0.5"
-    }
+  "name": "frontend-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.7",
+    "@tanstack/react-query": "^5.76.1",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "axios": "^1.9.0",
+    "date-fns": "^4.1.0",
+    "iconoir-react": "^7.11.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.0",
+    "react-sweet-progress": "^1.1.2",
+    "react-use-lanyard": "^0.3.2",
+    "tailwindcss": "^4.1.7",
+    "zustand": "^5.0.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@tanstack/eslint-plugin-query": "^5.74.7",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react-swc": "^3.9.0",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "tailwind-scrollbar": "^4.0.2",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5"
+  }
 }
