@@ -13,6 +13,8 @@ logs
 # testing
 /coverage
 
+.env
+
 # next.js
 /.next/
 /out/
