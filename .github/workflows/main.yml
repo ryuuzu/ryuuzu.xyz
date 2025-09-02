@@ -82,6 +82,7 @@ jobs:
             docker run -d \
               --name $CONTAINER_NAME \
               --restart always \
+              --network global-docker-network \
               ghcr.io/$REPO_NAME:$IMAGE_TAG
 
             echo "--- Cleaning up old, unused images ---"
