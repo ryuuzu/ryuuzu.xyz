@@ -20,6 +20,8 @@ COPY . .
 # Set a default value to avoid build errors if it's not provided.
 ARG VITE_API_URL=https://api.ryuuzu.xyz
 ENV VITE_API_URL=$VITE_API_URL
+ARG VITE_CLARITY_PROJECT_ID=impchiwk8z
+ENV VITE_CLARITY_PROJECT_ID=$VITE_CLARITY_PROJECT_ID
 
 # Build the application. The build script will now use the ENV variable defined above.
 RUN npm run build
