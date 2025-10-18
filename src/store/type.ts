@@ -3,6 +3,7 @@ import type { TCodeAward } from '@/types/code-award';
 import type { TCredit } from '@/types/credit';
 import type { TUserRepo } from '@/types/github-repo';
 import type { TNotFoundCounter } from '@/types/not-found-counter';
+import type { TProject } from '@/types/project';
 import type { TSocialLink } from '@/types/social-link';
 import type { TWorkExperience } from '@/types/work-experience';
 
@@ -21,4 +22,6 @@ export type TGlobalStore = {
   getNotFoundCounter: () => Promise<TNotFoundCounter>;
   userProjects: TUserRepo[];
   getUserProjects(): Promise<TUserRepo[]>;
+  allProjects: TProject[];
+  getAllProjects(): Promise<TProject[]>;
 };

@@ -1,14 +1,11 @@
-import {
-  // ArrowDownLeftCircle,
-  GitFork,
-  Star,
-} from 'iconoir-react';
+import { GitFork, Star } from 'iconoir-react';
+import { NavLink } from 'react-router';
 
 import { SecondaryCvSeparator } from '@/components/cv-separator';
 import Loading from '@/components/loading';
 import { type TUserRepo } from '@/types/github-repo';
 
-const Project = ({ project }: { project: TUserRepo }) => {
+export const Project = ({ project }: { project: TUserRepo }) => {
   return (
     <>
       <div className="project flex flex-col justify-between md:flex-row">
@@ -84,9 +81,19 @@ export const Projects = ({
   isLoading: boolean;
 }) => (
   <div className="projects">
-    <h4 className="text-tertiary pb-1 text-xl font-bold sm:pb-2 sm:text-2xl">
-      Projects
-    </h4>
+    <div className={'flex justify-between'}>
+      <h4 className="text-tertiary pb-1 text-xl font-bold sm:pb-2 sm:text-2xl">
+        Projects
+      </h4>
+      <NavLink
+        to="/projects"
+        className={
+          'text-primary underline decoration-dotted underline-offset-4'
+        }
+      >
+        View All Projects
+      </NavLink>
+    </div>
     {!isLoading ? (
       <>
         {projects.length >= 1 ? (

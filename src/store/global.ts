@@ -66,6 +66,7 @@ export const useGlobalStore = create<TGlobalStore>((set) => ({
         userRepoProject.github_languages_data
       );
       repos.push({
+        id: userRepoProject.id,
         repoData,
         languages,
         languagesData,
@@ -76,5 +77,11 @@ export const useGlobalStore = create<TGlobalStore>((set) => ({
     set({ userProjects: repos });
 
     return repos;
+  },
+  allProjects: [],
+  getAllProjects: async () => {
+    const response = await axios.get<TProject[]>(API_ROUTES.PROJECTS);
+    set({ allProjects: response.data });
+    return response.data;
   },
 }));

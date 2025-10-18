@@ -24,6 +24,7 @@ export type TLastCommitData = {
 };
 
 export type TUserRepo = {
+  id: number;
   repoData: TRepository;
   languages?: string[];
   languagesData: object;

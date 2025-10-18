@@ -3,12 +3,25 @@ import { useEffect } from 'react';
 import { clarity } from 'react-microsoft-clarity';
 import { RouterProvider, createBrowserRouter } from 'react-router';
 
+import { BaseLayout } from '@/layouts/base';
+import { Projects } from '@/pages/projects';
+
 import { Home } from './pages/home';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <BaseLayout />,
+    children: [
+      {
+        index: true, // same as path: ''
+        element: <Home />,
+      },
+      {
+        path: 'projects',
+        element: <Projects />,
+      },
+    ],
   },
 ]);
 
