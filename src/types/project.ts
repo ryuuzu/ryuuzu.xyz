@@ -4,6 +4,7 @@ export type TProject = {
   id: number;
   is_github_repo: boolean;
   repo_name: string;
+  link: string | null;
   title: string;
   description: string;
   github_repo_data: TRepository;

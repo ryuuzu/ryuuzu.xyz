@@ -11,9 +11,19 @@ const Project = ({ project }: { project: TProject }) => (
   <div className="project flex flex-col justify-between gap-2">
     <div>
       <div className="project-title text-primary flex items-center gap-2">
-        <div className="underline decoration-dotted underline-offset-4">
-          {project.title}
-        </div>
+        {project.link ? (
+          <a
+            href={project.link}
+            target="_blank"
+            className="underline decoration-dotted underline-offset-4"
+          >
+            {project.title}
+          </a>
+        ) : (
+          <div className="underline decoration-dotted underline-offset-4">
+            {project.title}
+          </div>
+        )}
       </div>
       <div className="project-description mt-1 text-sm font-medium">
         {project.description}
