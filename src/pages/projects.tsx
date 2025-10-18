@@ -33,26 +33,28 @@ const Project = ({ project }: { project: TProject }) => (
         </div>
       </div>
     )}
-    <div>
-      <div className="underline decoration-dotted underline-offset-4">
-        Screenshots
+    {project.images.length > 0 && (
+      <div>
+        <div className="underline decoration-dotted underline-offset-4">
+          Screenshots
+        </div>
+        <div
+          className={
+            'scrollbar-thumb-primary scrollbar-thin scrollbar-thumb-rounded-full mt-1 flex snap-x flex-row gap-2 overflow-x-auto'
+          }
+        >
+          {project.images.map((image, index) => (
+            <img
+              src={image.image.image}
+              className={
+                'max-w-full snap-start rounded-md shadow-md md:max-w-1/3'
+              }
+              key={`${project.title} Screenshot ${index}`}
+            />
+          ))}
+        </div>
       </div>
-      <div
-        className={
-          'scrollbar-thumb-primary scrollbar-thin scrollbar-thumb-rounded-full mt-1 flex snap-x flex-row gap-2 overflow-x-auto'
-        }
-      >
-        {project.images.map((image, index) => (
-          <img
-            src={image.image.image}
-            className={
-              'max-w-full snap-start rounded-md shadow-md md:max-w-1/3'
-            }
-            key={`${project.title} Screenshot ${index}`}
-          />
-        ))}
-      </div>
-    </div>
+    )}
     {project.languages_used && (
       <div className="project-languages mt-2 text-sm font-medium">
         <span className="font-bold">Languages: </span>
