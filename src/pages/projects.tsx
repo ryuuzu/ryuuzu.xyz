@@ -57,7 +57,7 @@ const Project = ({ project }: { project: TProject }) => (
             <img
               src={image.image.image}
               className={
-                'max-w-full snap-start rounded-md shadow-md md:max-w-1/3'
+                'max-w-full snap-center rounded-md shadow-md md:max-w-1/3 md:snap-start'
               }
               key={`${project.title} Screenshot ${index}`}
             />
