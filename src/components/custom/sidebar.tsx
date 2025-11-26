@@ -1,11 +1,31 @@
+import { useMutation } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { formatDistance } from 'date-fns';
-import { MapPin } from 'lucide-react';
-import { useMemo } from 'react';
+import { FileUser, FolderGit, House, MapPin } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { toast } from 'sonner';
 
+import { API_ROUTES } from '@/config/routes';
+import axios from '@/lib/axios';
 import { useGlobalStore } from '@/stores/global';
+
+type TBaseNavigation = {
+  onClick?: () => void;
+  href?: string;
+  component: React.ReactNode;
+};
+
+type TNavigationLink = TBaseNavigation & {
+  href: string;
+};
+
+type TNavigationButton = TBaseNavigation & {
+  onClick: () => void;
+};
 
 export const Sidebar = () => {
   const { academicDegrees, workExperiences } = useGlobalStore();
+  const pathname = window.location.pathname;
 
   const totalWorkingExperience = useMemo(() => {
     if (workExperiences.length === 0) return '0 years';
@@ -20,6 +40,59 @@ export const Sidebar = () => {
     const years = Math.floor(totalExperience / (1000 * 60 * 60 * 24 * 365));
     return `${years} year${years > 1 ? 's' : ''}`;
   }, [workExperiences]);
+
+  const downloadResume = async () => {
+    const response = await axios.get(API_ROUTES.RESUME, {
+      responseType: 'blob',
+    });
+    const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+    const fileLink = document.createElement('a');
+    fileLink.href = fileURL;
+    fileLink.setAttribute('download', 'Utsav_Gurmachhan_Resume.pdf');
+    document.body.appendChild(fileLink);
+    fileLink.click();
+    fileLink.remove();
+  };
+
+  const { mutateAsync: downloadResumeAsync } = useMutation({
+    mutationFn: downloadResume,
+  });
+
+  const navigationLinks: Array<TNavigationLink | TNavigationButton> = [
+    {
+      href: '/',
+      component: (
+        <>
+          <House className={'size-4'} />
+          <span className="text-sm">Home</span>
+        </>
+      ),
+    },
+    {
+      href: '/projects',
+      component: (
+        <>
+          <FolderGit className={'size-4'} />
+          <span className="text-sm">Projects</span>
+        </>
+      ),
+    },
+    {
+      onClick: () => {
+        toast.promise(() => downloadResumeAsync(), {
+          loading: 'Downloading resume...',
+          success: () => 'Resume downloaded.',
+          error: 'Error',
+        });
+      },
+      component: (
+        <>
+          <FileUser className={'size-4'} />
+          <span className="text-sm">Resume</span>
+        </>
+      ),
+    },
+  ];
 
   return (
     <div className="bg-primary w-full overflow-auto px-5 py-8 text-base text-white sm:min-h-screen sm:py-10 md:max-h-screen md:w-2/5 md:text-sm lg:text-base">
@@ -138,6 +211,34 @@ export const Sidebar = () => {
             experience in the field of software development.
           </>
         )}
+      </div>
+      <div className="mt-5 flex flex-row justify-between gap-2 text-xl">
+        {navigationLinks
+          .filter(
+            (navigationLink) =>
+              (navigationLink.href && navigationLink.href !== pathname) ||
+              navigationLink.onClick
+          )
+          .map((navigationLink) => {
+            const className =
+              'flex w-full items-center gap-2 rounded-sm border border-white/25 px-3 py-2 cursor-pointer';
+            if (navigationLink.onClick) {
+              return (
+                <button className={className} onClick={navigationLink.onClick}>
+                  {navigationLink.component}
+                </button>
+              );
+            }
+            return (
+              <Link
+                to={navigationLink.href}
+                key={navigationLink.href}
+                className={className}
+              >
+                {navigationLink.component}
+              </Link>
+            );
+          })}
       </div>
       <a
         href="https://goo.gl/maps/JdGHKxArPFvGGv6w7"

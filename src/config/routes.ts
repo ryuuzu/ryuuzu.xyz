@@ -6,4 +6,5 @@ export const API_ROUTES = {
   CREDITS: 'credits/',
   PROJECTS: 'projects/',
   NOT_FOUND_COUNTER: 'not-found-counter/',
+  RESUME: 'resume/',
 };

@@ -1,6 +1,7 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
+import CookieConsentBanner from '@/components/custom/cookie-consent-banner';
 import { Header } from '@/components/custom/header';
 import { Sidebar } from '@/components/custom/sidebar';
 import {
@@ -58,6 +59,7 @@ function RouteComponent() {
         <Outlet />
       </div>
       <Sidebar />
+      <CookieConsentBanner />
     </main>
   );
 }
