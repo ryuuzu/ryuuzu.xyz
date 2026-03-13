@@ -33,7 +33,6 @@ function RouteComponent() {
     ],
     markdownContent: '',
   });
-  const [postContent, setPostContent] = useState('');
   const editor = useCreateBlockNote({
     initialContent: postData.editorDocument,
   });
