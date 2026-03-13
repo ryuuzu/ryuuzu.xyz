@@ -6,7 +6,8 @@ import {
   SiTiktok,
   SiX,
 } from '@icons-pack/react-simple-icons';
-import { Linkedin, Mail } from 'lucide-react';
+import { Linkedin, Mail, Brackets } from 'lucide-react';
+import momoImage from "@/assets/images/momo.png"
 
 export const getIcon = (iconName: string) => {
   switch (iconName) {
@@ -24,7 +25,11 @@ export const getIcon = (iconName: string) => {
       return <SiTiktok />;
     case 'instagram':
       return <SiInstagram />;
-    default:
+    case 'spotify':
       return <SiSpotify />;
+    case 'buymemomo':
+      return <img src={momoImage} alt="momo image" className="size-6" /> 
+    default:
+      return <Brackets />;
   }
 };

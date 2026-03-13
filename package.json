@@ -12,6 +12,9 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
+    "@blocknote/core": "^0.42.3",
+    "@blocknote/react": "^0.42.3",
+    "@blocknote/shadcn": "^0.42.3",
     "@faker-js/faker": "^10.0.0",
     "@icons-pack/react-simple-icons": "^13.8.0",
     "@radix-ui/react-label": "^2.1.8",

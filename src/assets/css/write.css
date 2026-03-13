@@ -1,0 +1,19 @@
+.bn-container {
+    min-height: 80px;
+    margin-block: 10px;
+    background-color: aqua;
+    padding-top: 20px !important;
+}
+
+.bn-container {
+    background-color: #1f1f1f;
+    min-height: 44px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    overflow: visible !important;
+    height: auto !important;
+}
+

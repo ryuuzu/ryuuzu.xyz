@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DefaultRouteImport } from './routes/_default'
 import { Route as DefaultIndexRouteImport } from './routes/_default/index'
 import { Route as DefaultProjectsRouteImport } from './routes/_default/projects'
+import { Route as DefaultBlogsPostSlugRouteImport } from './routes/_default/blogs/$postSlug'
+import { Route as AuthenticatedBlogsWriteRouteImport } from './routes/_authenticated/blogs/write'
 
 const DefaultRoute = DefaultRouteImport.update({
   id: '/_default',
@@ -27,31 +29,54 @@ const DefaultProjectsRoute = DefaultProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => DefaultRoute,
 } as any)
+const DefaultBlogsPostSlugRoute = DefaultBlogsPostSlugRouteImport.update({
+  id: '/blogs/$postSlug',
+  path: '/blogs/$postSlug',
+  getParentRoute: () => DefaultRoute,
+} as any)
+const AuthenticatedBlogsWriteRoute = AuthenticatedBlogsWriteRouteImport.update({
+  id: '/_authenticated/blogs/write',
+  path: '/blogs/write',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/projects': typeof DefaultProjectsRoute
   '/': typeof DefaultIndexRoute
+  '/blogs/write': typeof AuthenticatedBlogsWriteRoute
+  '/blogs/$postSlug': typeof DefaultBlogsPostSlugRoute
 }
 export interface FileRoutesByTo {
   '/projects': typeof DefaultProjectsRoute
   '/': typeof DefaultIndexRoute
+  '/blogs/write': typeof AuthenticatedBlogsWriteRoute
+  '/blogs/$postSlug': typeof DefaultBlogsPostSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_default': typeof DefaultRouteWithChildren
   '/_default/projects': typeof DefaultProjectsRoute
   '/_default/': typeof DefaultIndexRoute
+  '/_authenticated/blogs/write': typeof AuthenticatedBlogsWriteRoute
+  '/_default/blogs/$postSlug': typeof DefaultBlogsPostSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/projects' | '/'
+  fullPaths: '/projects' | '/' | '/blogs/write' | '/blogs/$postSlug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/projects' | '/'
-  id: '__root__' | '/_default' | '/_default/projects' | '/_default/'
+  to: '/projects' | '/' | '/blogs/write' | '/blogs/$postSlug'
+  id:
+    | '__root__'
+    | '/_default'
+    | '/_default/projects'
+    | '/_default/'
+    | '/_authenticated/blogs/write'
+    | '/_default/blogs/$postSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   DefaultRoute: typeof DefaultRouteWithChildren
+  AuthenticatedBlogsWriteRoute: typeof AuthenticatedBlogsWriteRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -77,17 +102,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DefaultProjectsRouteImport
       parentRoute: typeof DefaultRoute
     }
+    '/_default/blogs/$postSlug': {
+      id: '/_default/blogs/$postSlug'
+      path: '/blogs/$postSlug'
+      fullPath: '/blogs/$postSlug'
+      preLoaderRoute: typeof DefaultBlogsPostSlugRouteImport
+      parentRoute: typeof DefaultRoute
+    }
+    '/_authenticated/blogs/write': {
+      id: '/_authenticated/blogs/write'
+      path: '/blogs/write'
+      fullPath: '/blogs/write'
+      preLoaderRoute: typeof AuthenticatedBlogsWriteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface DefaultRouteChildren {
   DefaultProjectsRoute: typeof DefaultProjectsRoute
   DefaultIndexRoute: typeof DefaultIndexRoute
+  DefaultBlogsPostSlugRoute: typeof DefaultBlogsPostSlugRoute
 }
 
 const DefaultRouteChildren: DefaultRouteChildren = {
   DefaultProjectsRoute: DefaultProjectsRoute,
   DefaultIndexRoute: DefaultIndexRoute,
+  DefaultBlogsPostSlugRoute: DefaultBlogsPostSlugRoute,
 }
 
 const DefaultRouteWithChildren =
@@ -95,6 +136,7 @@ const DefaultRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   DefaultRoute: DefaultRouteWithChildren,
+  AuthenticatedBlogsWriteRoute: AuthenticatedBlogsWriteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
